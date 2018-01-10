@@ -41,7 +41,7 @@ class Tools {
                 'ss': second
             };
             let trunk = new RegExp(Object.keys(maps).join('|'), 'g');
-            output = format.replace(trunk, function (capture) {
+            output = format.replace(trunk, function(capture) {
                 return maps[capture] ? maps[capture] : '';
             });
         } else {
@@ -84,7 +84,7 @@ class Tools {
      * @param array   [{}]
      */
     static sortByKey(key, array) {
-        array.sort(function (a, b) {
+        array.sort(function(a, b) {
             if (a[key] && b[key]) {
                 if (a[key] == b[key]) {
                     return 0;
@@ -193,7 +193,7 @@ class Tools {
      */
     static sleep(time) {
         return new Promise((resolve, reject) => {
-            setTimeout(function () {
+            setTimeout(function() {
                 resolve();
             }, time);
         });
@@ -204,12 +204,130 @@ class Tools {
      * @return {Boolean} [description]
      */
     static isEmptyObj(obj) {
-        for(let i in obj) {
+        for (let i in obj) {
             return false;
         }
-        
+
         return true;
     }
+
+    /**
+     * 深度克隆对象
+     * @param  {[type]} obj [description]
+     * @return {[type]}     [description]
+     */
+    static cloneObj(obj) {
+        let o;
+        switch (typeof obj) {
+            case 'undefined':
+                break;
+            case 'string':
+                o = obj + '';
+                break;
+            case 'number':
+                o = obj - 0;
+                break;
+            case 'boolean':
+                o = obj;
+                break;
+            case 'object':
+                if (obj === null) {
+                    o = null;
+                } else {
+                    if (obj instanceof Array) {
+                        o = [];
+                        for (let i = 0, len = obj.length; i < len; i++) {
+                            o.push(clone(obj[i]));
+                        }
+                    } else {
+                        o = {};
+                        for (let k in obj) {
+                            o[k] = clone(obj[k]);
+                        }
+                    }
+                }
+                break;
+            default:
+                o = obj;
+                break;
+        }
+        return o;
+    }
+
+    /**
+     * 对象数组排序，根据指定的属性值(一个或多个)及其排序方式(正序/倒序)，依次排序
+     *               如果一个条件相同，则根据下一个条件进行排序，以此类推，直到条件用完，或是某一条件不同
+     *
+     * 参数：arr  - 需要排序的数据
+     *       sort - 排序方式
+     * 示例: fSortArr(arr, '属性名', { by: '属性名', bAsc: true }, { by: '属性名', bAsc: true }. { by: function(obj){ 一些逻辑处理; return 一个数值 }, bAsc: false }, ...);
+     *                               by: 要排序的属性名，bAsc: true/正序、false/倒序
+     *                               by: 也可以是一个方法，接收数组中当前的一个值（对象），然后返回一个数值
+     */
+    static fSortArr() {
+        let sortArr = [];
+        for (let i = 1, len = arguments.length; i < len; i++) {
+            if ('string' == $.type(arguments[i])) {
+                arguments[i] = { by: arguments[i], bAsc: true }
+            }
+            sortArr.push(arguments[i]);
+        }
+        arr.sort(function(a, b) {
+            return fSort(a, b, 0);
+        });
+
+        function fSort(a, b, index) {
+            let sort = sortArr[index];
+            if (!sort) {
+                return 0;
+            }
+            if ('string' == $.type(sort.by)) {
+                return fCompare(a[sort.by], b[sort.by]);
+            } else {
+                let av = sort.by(a),
+                    bv = sort.by(b);
+                return fCompare(av, bv);
+            }
+
+            function fCompare(av, bv) {
+                if (av != bv) {
+                    return sort.bAsc ? av - bv : bv - av;
+                } else {
+                    index++;
+                    return fSort(a, b, index);
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据输入时间，输出天数
+     * @return {[type]} [description]
+     * eg: let days = getMiddleDays('2016-10-01 12:12:12', '2016-11-02 12:12:12');
+     */
+    getMiddleDays() {
+        let startDate = new Date(startTime);
+        let endMonth = new Date(endTime).getMonth();
+        let endDays = new Date(endTime).getDate();
+
+        let days = [],
+            date = startDate,
+            y, m, d;
+        while (true) {
+            y = date.getFullYear();
+            m = ('00' + (date.getMonth() + 1)).substring(String(date.getMonth() + 1).length);
+            d = ('00' + date.getDate()).substring(String(date.getDate() + 1).length);
+            days.push(y + '-' + m + '-' + d);
+            if ((startDate.getMonth() === endMonth) && (startDate.getDate() === endDays)) {
+                console.log('break')
+                break;
+            }
+            date = new Date(startDate.setDate(startDate.getDate() + 1));
+
+        }
+        return days;
+    }
+
 }
 
 
