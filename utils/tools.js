@@ -198,6 +198,18 @@ class Tools {
             }, time);
         });
     }
+
+    /**
+     * 是否空对象
+     * @return {Boolean} [description]
+     */
+    static isEmptyObj(obj) {
+        for(let i in obj) {
+            return false;
+        }
+        
+        return true;
+    }
 }
 
 
