@@ -15,6 +15,10 @@ class Logger {
         console.log.apply(console, [_logName(' INFO: ')].concat(Array.prototype.slice.call(arguments)));
     }
 
+    static info() {
+        console.log.apply(console, [_logName(' INFO: ')].concat(Array.prototype.slice.call(arguments)));
+    }
+
     static error(err) {
         if (err instanceof Error) {
             console.error(_logName(''), Error('where the error location').stack, '\n============>', err.stack);
