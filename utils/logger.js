@@ -1,7 +1,9 @@
 const Tools = require('./tools');
 
 
-if (!process.forkname) {
+if (process.forkname) {
+    process.forkname = ' ' + process.forkname.trim() + ' ';
+} else {
     process.forkname = '';
 }
 
@@ -12,11 +14,11 @@ if (!process.forkname) {
 class Logger {
 
     static log() {
-        console.log.apply(console, [_logName(' INFO: ')].concat(Array.prototype.slice.call(arguments)));
+        console.log(_logName(' INFO:'), ...arguments);
     }
 
     static info() {
-        console.log.apply(console, [_logName(' INFO: ')].concat(Array.prototype.slice.call(arguments)));
+        console.log(_logName(' INFO:'), ...arguments);
     }
 
     static error(err) {
@@ -28,12 +30,12 @@ class Logger {
     }
 
     static warn() {
-        console.warn.apply(console, [_logName(' WARN: ')].concat(Array.prototype.slice.call(arguments)));
+        console.warn(_logName(' WARN:'), ...arguments);
     }
 
     static debug() {
         if (process.env.DEBUG) {
-            console.log.apply(console, [_logName(' DEBUG: ')].concat(Array.prototype.slice.call(arguments)));
+            console.log(_logName(' DEBUG:'), ...arguments);
         }
     }
 }
@@ -45,7 +47,7 @@ class Logger {
  */
 function _logName(str) {
     const time = Tools.timeFormat();
-    return time + ' ' + process.forkname + ' ' + process.pid + str;
+    return time + process.forkname + process.pid + str;
 }
 
 
