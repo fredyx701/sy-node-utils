@@ -21,11 +21,16 @@ class Logger {
         console.log(_logName(' INFO:'), ...arguments);
     }
 
-    static error(err) {
-        if (err instanceof Error) {
-            console.error(_logName(''), Error('where the error location').stack, '\n============>', err.stack);
+    static error() {
+        if (arguments.length === 1) {
+            const err = arguments[0];
+            if (err instanceof Error) {
+                console.error(_logName(''), Error('where the error location').stack, '\n============>', err.stack);
+            } else {
+                console.error(_logName(''), Error(err).stack);
+            }
         } else {
-            console.error(_logName(''), Error(err).stack);
+            console.error(_logName(' ERROR:'), ...arguments);
         }
     }
 
