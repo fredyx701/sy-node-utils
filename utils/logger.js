@@ -1,10 +1,9 @@
 const Tools = require('./tools');
 
 
+let forkname = '';
 if (process.forkname) {
-    process.forkname = ' ' + process.forkname.trim() + ' ';
-} else {
-    process.forkname = '';
+    forkname = ' ' + process.forkname.trim() + ' ';
 }
 
 
@@ -52,7 +51,7 @@ class Logger {
  */
 function _logName(str) {
     const time = Tools.timeFormat();
-    return time + process.forkname + process.pid + str;
+    return time + forkname + process.pid + str;
 }
 
 
