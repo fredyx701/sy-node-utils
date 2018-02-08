@@ -1,7 +1,7 @@
 const Tools = require('./tools');
 
 
-let forkname = '';
+let forkname = ' ';
 if (process.forkname) {
     forkname = ' ' + process.forkname.trim() + ' ';
 }
