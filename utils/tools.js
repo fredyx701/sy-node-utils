@@ -18,18 +18,13 @@ class Tools {
      * @param format     yyyyMMddHHmmss   默认  yyyy-MM-dd HH:mm:ss
      */
     static timeFormat(dateTime, format) {
-        function fix(str) {
-            str = str + '';
-            return str.length < 2 ? '0' + str : str;
-        }
-
         const date = dateTime ? new Date(dateTime) : new Date();
-        let year = date.getFullYear() + '';
-        let month = fix(date.getMonth() + 1);
-        let day = fix(date.getDate());
-        let hour = fix(date.getHours());
-        let minute = fix(date.getMinutes());
-        let second = fix(date.getSeconds());
+        let year = Tools.zeroPad(date.getFullYear(), 4);
+        let month = Tools.zeroPad(date.getMonth() + 1, 2);
+        let day = Tools.zeroPad(date.getDate(), 2);
+        let hour = Tools.zeroPad(date.getHours(), 2);
+        let minute = Tools.zeroPad(date.getMinutes(), 2);
+        let second = Tools.zeroPad(date.getSeconds(), 2);
         let output = '';
         if (format) {
             let maps = {
@@ -41,13 +36,25 @@ class Tools {
                 'ss': second
             };
             let trunk = new RegExp(Object.keys(maps).join('|'), 'g');
-            output = format.replace(trunk, function(capture) {
+            output = format.replace(trunk, function (capture) {
                 return maps[capture] ? maps[capture] : '';
             });
         } else {
             output = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
         }
         return output;
+    }
+
+
+    /**
+     * 填充0
+     */
+    static zeroPad(str, length) {
+        str = str + '';
+        while (str.length < length) {
+            str = '0' + str;
+        }
+        return str;
     }
 
 
@@ -83,7 +90,7 @@ class Tools {
      * @param array   [{}]
      */
     static sortByKey(key, array) {
-        array.sort(function(a, b) {
+        array.sort(function (a, b) {
             if (a[key] && b[key]) {
                 if (a[key] == b[key]) {
                     return 0;
@@ -192,7 +199,7 @@ class Tools {
      */
     static sleep(time) {
         return new Promise((resolve, reject) => {
-            setTimeout(function() {
+            setTimeout(function () {
                 resolve();
             }, time);
         });
@@ -267,11 +274,11 @@ class Tools {
         let sortArr = [];
         for (let i = 1, len = arguments.length; i < len; i++) {
             if ('string' == $.type(arguments[i])) {
-                arguments[i] = { by: arguments[i], bAsc: true }
+                arguments[i] = {by: arguments[i], bAsc: true}
             }
             sortArr.push(arguments[i]);
         }
-        arr.sort(function(a, b) {
+        arr.sort(function (a, b) {
             return fSort(a, b, 0);
         });
 
