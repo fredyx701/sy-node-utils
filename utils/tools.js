@@ -85,6 +85,23 @@ class Tools {
 
 
     /**
+     * 交集
+     */
+    static intersect(arr1, arr2) {
+        const set2 = new Set(arr2);
+        return arr1.filter(x => set2.has(x));
+    }
+
+
+    /**
+     * 并集
+     */
+    static union(arr1, arr2) {
+        return [...new Set(arr1.concat(arr2))];
+    }
+
+
+    /**
      * 对object数组按照关键key排序
      * @param key
      * @param array   [{}]
