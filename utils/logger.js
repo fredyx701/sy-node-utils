@@ -24,9 +24,9 @@ class Logger {
         if (arguments.length === 1) {
             const err = arguments[0];
             if (err instanceof Error) {
-                console.error(_logName(''), Error('where the error location').stack, '\n============>', err.stack);
+                console.error(_logName(''), Error('where the error location'), '\n============>', err);
             } else {
-                console.error(_logName(''), Error(err).stack);
+                console.error(_logName(''), Error(err));
             }
         } else {
             console.error(_logName(' ERROR:'), ...arguments);
