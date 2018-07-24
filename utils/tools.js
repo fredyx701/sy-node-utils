@@ -137,10 +137,13 @@ class Tools {
 
 
     /**
-     * 返回当前时间戳，单位秒
+     * 时间戳，单位秒
      */
-    static now() {
-        return Math.ceil(Date.now() / 1000);
+    static now(date) {
+        if (date) {
+            return Math.floor(new Date(date).getTime() / 1000);
+        }
+        return Math.floor(Date.now() / 1000);
     }
 
 
