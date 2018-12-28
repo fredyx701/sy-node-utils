@@ -1,8 +1,8 @@
 {
   "name": "sy-node-utils",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "engines": {
-    "node": ">=6.0"
+    "node": ">=8.0"
   },
   "private": false,
   "repository": {
@@ -13,5 +13,7 @@
   "author": "fredyxue",
   "main": "index.js",
   "dependencies": {
+    "eslint": "^4.11.0",
+    "eslint-config-egg": "^6.0.0"
   }
 }
