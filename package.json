@@ -12,7 +12,8 @@
   "license": "MIT",
   "author": "fredyxue",
   "main": "index.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "eslint": "^4.11.0",
     "eslint-config-egg": "^6.0.0"
   }
