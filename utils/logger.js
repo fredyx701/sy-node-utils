@@ -25,11 +25,7 @@ class Logger {
     static error() {
         if (arguments.length === 1) {
             const err = arguments[0];
-            if (err instanceof Error) {
-                console.error(_logName(''), Error('where the error location'), '\n============>', err);
-            } else {
-                console.error(_logName(''), Error(err));
-            }
+            console.error(_logName(''), err instanceof Error ? err : Error(JSON.stringify(err)));
         } else {
             console.error(_logName(' ERROR:'), ...arguments);
         }
