@@ -271,6 +271,17 @@ class Tools {
     }
 
     /**
+     * 延迟
+     */
+    static delay() {
+        return new Promise(resolve => {
+            process.nextTick(function() {
+                resolve();
+            });
+        });
+    }
+
+    /**
      * 是否空对象
      * @return {Boolean} [description]
      */
