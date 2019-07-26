@@ -1,45 +1,11 @@
 'use strict';
 
-const Tools = require('./tools');
+const Tools = require('../tools');
 
 
 let forkname = ' ';
 if (process.forkname) {
     forkname = ' ' + process.forkname.trim() + ' ';
-}
-
-
-/**
- * 日志类
- */
-class Logger {
-
-    static log() {
-        console.log(_logName(' INFO:'), ...arguments);
-    }
-
-    static info() {
-        console.log(_logName(' INFO:'), ...arguments);
-    }
-
-    static error() {
-        if (arguments.length === 1) {
-            const err = arguments[0];
-            console.error(_logName(''), err instanceof Error ? err : Error(JSON.stringify(err)));
-        } else {
-            console.error(_logName(' ERROR:'), ...arguments);
-        }
-    }
-
-    static warn() {
-        console.warn(_logName(' WARN:'), ...arguments);
-    }
-
-    static debug() {
-        if (process.env.DEBUG) {
-            console.log(_logName(' DEBUG:'), ...arguments);
-        }
-    }
 }
 
 
@@ -53,4 +19,31 @@ function _logName(str) {
 }
 
 
-module.exports = Logger;
+module.exports = {
+    log() {
+        console.log(_logName(' INFO:'), ...arguments);
+    },
+
+    info() {
+        console.log(_logName(' INFO:'), ...arguments);
+    },
+
+    error() {
+        if (arguments.length === 1) {
+            const err = arguments[0];
+            console.error(_logName(''), err instanceof Error ? err : Error(JSON.stringify(err)));
+        } else {
+            console.error(_logName(' ERROR:'), ...arguments);
+        }
+    },
+
+    warn() {
+        console.warn(_logName(' WARN:'), ...arguments);
+    },
+
+    debug() {
+        if (process.env.DEBUG) {
+            console.log(_logName(' DEBUG:'), ...arguments);
+        }
+    },
+};
