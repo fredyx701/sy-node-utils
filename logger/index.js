@@ -29,12 +29,19 @@ module.exports = {
     },
 
     error() {
-        if (arguments.length === 1) {
+        console.error(_logName(' ERROR:'), ...arguments);
+
+        /* if (arguments.length === 1) {
             const err = arguments[0];
+            if (err instanceof Error) {
+                console.error(_logName(''), err);
+            } else {
+
+            }
             console.error(_logName(''), err instanceof Error ? err : Error(JSON.stringify(err)));
         } else {
             console.error(_logName(' ERROR:'), ...arguments);
-        }
+        } */
     },
 
     warn() {
