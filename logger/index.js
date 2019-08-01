@@ -36,9 +36,8 @@ module.exports = {
             if (err instanceof Error) {
                 console.error(_logName(''), err);
             } else {
-
+                console.error(_logName(''), Error(typeof err === 'object' ? JSON.stringify(err) : err));
             }
-            console.error(_logName(''), err instanceof Error ? err : Error(JSON.stringify(err)));
         } else {
             console.error(_logName(' ERROR:'), ...arguments);
         } */
