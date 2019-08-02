@@ -1,6 +1,6 @@
 {
   "name": "sy-node-utils",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "engines": {
     "node": ">=8.0"
   },

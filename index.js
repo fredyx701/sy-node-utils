@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
-    Tools: require('./tools'),
-    Logger: require('./logger'),
-};
+
+exports.Logger = exports.logger = require('./logger');
+exports.Tools = exports.tools = require('./tools');
+exports.Lodash = exports.lodash = require('./lodash');
