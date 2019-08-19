@@ -12,6 +12,7 @@ module.exports = {
     *
     * @param dateTime
     * @param format     yyyyMMddHHmmss   默认  yyyy-MM-dd HH:mm:ss
+    * @param timeZone   时区  默认local   若指定时区， 则 dateTime 按照 UTC 时间 来处理
     */
     timeFormat(dateTime, format, timeZone = 'local') {
 
