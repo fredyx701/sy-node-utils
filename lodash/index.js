@@ -1,15 +1,22 @@
 'use strict';
 
 const lodash = require('lodash');
+const sy_lodash = {};
 
-const original_get = lodash.get;
-
-lodash.get = function(object, path, defaultValue) {
-    const value = original_get(...arguments);
-    if (defaultValue === undefined) {
-        return value;
+for (const key in lodash) {
+    if (lodash.hasOwnProperty(key) && typeof lodash[key] === 'function') {
+        sy_lodash[key] = function() {
+            return lodash[key](...arguments);
+        };
     }
-    return value || defaultValue;
+}
+
+sy_lodash.get = function(object, path, defaultValue) {
+    const value = lodash.get(...arguments);
+    if (value === undefined || value === null) {
+        return defaultValue;
+    }
+    return value;
 };
 
-module.exports = lodash;
+module.exports = sy_lodash;
