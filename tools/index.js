@@ -31,7 +31,7 @@ module.exports = {
      * 随机取值
      * @param array 提供 一组数据值 随机获取
      */
-    getRandomArray(array) {
+    randomArray(array) {
         return array[Math.floor(Math.random() * array.length)];
     },
 
