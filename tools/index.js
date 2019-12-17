@@ -28,6 +28,22 @@ module.exports = {
 
 
     /**
+     * 随机取值
+     * @param array 提供 一组数据值 随机获取
+     */
+    getRandomArray(array) {
+        return array[Math.floor(Math.random() * array.length)];
+    },
+
+    /**
+     * 随机范围内的整数
+     * 包含 start 和 end 的值
+     */
+    randomInt(start, end) {
+        return start + Math.floor(Math.random() * (end - start + 1));
+    },
+
+    /**
      * string数组转换number数组
      * @param arr
      */
